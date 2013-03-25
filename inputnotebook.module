@@ -106,6 +106,7 @@ function inputnotebook_filter( $op, $delta=0, $format=-1, $text='' ) {
 
 // core: hook_filter_tips()
 function inputnotebook_filter_tips( $delta, $format, $long=false ) {
-
+   return t( 'You may denote = Headers = and * List Items using the '.
+      '"notebook" input format.' );
 }
 

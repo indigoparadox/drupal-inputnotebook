@@ -1,0 +1,33 @@
+
+span.inputnotebook-strike {
+   color: #800000;
+   text-decoration: line-through;
+}
+
+div.inputnotebook-indent {
+   margin-left: 20px;
+
+}
+
+h2.inputnotebook-head {
+   border-top: 6px solid black;
+   font-size: 16px !important;
+   font-weight: bold;
+   padding: 10px 0px 5px 0px;
+}
+
+h3.inputnotebook-head {
+   border-top: 3px solid black;
+   font-size: 14px !important;
+   font-weight: bold;
+   padding: 10px 0px 5px 0px;
+}
+
+h4.inputnotebook-head {
+   border-top: 1px solid black;
+   font-size: 13px !important;
+   font-style: italic;
+   font-weight: bold;
+   padding: 10px 0px 5px 0px;
+}
+

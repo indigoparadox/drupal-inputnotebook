@@ -2,110 +2,110 @@
 // This line is so VIM recognizes this as a PHP file:
 // vim:ft=php:shiftwidth=3:tabstop=3:
 
-// core: hook_filter()
-function inputnotebook_filter( $op, $delta=0, $format=-1, $text='' ) {
-   if( 'list' == $op ) {
-      return array( t( 'Notebook Input' ) );
+// core: hook_filter_info()
+function inputnotebook_filter_info() {
+//function inputnotebook_filter( $op, $delta=0, $format=-1, $text='' ) {
 
-   } elseif( 'description' == $op ) {
-      return
-         t( 'Parses markup similar to that of the TkNotebook application.' );
+   $filters['inputnotebook_filter'] = array(
+      'title' => t( 'Notebook Input' ),
+      'description' => t( 'Parses markup similar to that of the TkNotebook '.
+         'application.' ),
+      'process callback' => '_inputnotebook_filter_process',
+      'tips callback' => '_inputnotebook_filter_tips',
+   );
 
-   } elseif( 'prepare' == $op ) {
-      return $text;
-
-   } elseif( 'process' == $op ) {
-      drupal_add_css(
-         drupal_get_path( 'module', 'inputnotebook' ).'/inputnotebook.css'
-      );
-
-      // Get rid of extraneous line breaks.
-      /*$text = preg_replace(
-         '/<p>\s.<\/p>/',
-         '',
-         $text
-      );*/
-
-      // Strike-through
-      $text = preg_replace(
-         '/<x>(.*)<\/x>/',
-         '<span class="inputnotebook-strike">\1</span>',
-         $text
-      );
-
-      // L3 Headers
-      $text = preg_replace(
-         '/=== (.*) ===/',
-         '<h4 class="inputnotebook-head">\1</h4>',
-         $text
-      );
-
-      // L2 Headers
-      $text = preg_replace(
-         '/== (.*) ==/',
-         '<h3 class="inputnotebook-head">\1</h3>',
-         $text
-      );
-
-      // L1 Headers
-      $text = preg_replace(
-         '/= (.*) =/',
-         '<h2 class="inputnotebook-head">\1</h2>',
-         $text
-      );
-
-      // List Items
-      $text = preg_replace(
-         '/^\* (.*)/m',
-         '<li>\1</li>',
-         $text
-      );
-
-      // Lists
-      $text = preg_replace(
-         '/(class=\"inputnotebook-head\">.*?<\/h[0-9]>.*?)(<li>)(.*?)'.
-            '(<h[0-9]|$)/sD',
-         '\1<ul class="inputnotebook-list">\2\3</ul>\4',
-         $text
-      );
-
-      // List Indentation
-      /*$text = preg_replace(
-         '/(<h[0-9])/',
-         '<div class="inputnotebook-indent">\1',
-         $text
-      );
-
-      $text = preg_replace(
-         '/(<\/ul>)/',
-         '\1</div>',
-         $text
-      );*/
-
-      /*preg_match_all(
-         '/(<h[0-9] class=\"inputnotebook-head\">.*?<\/h[0-9]>.*?)(<li>)(.*?)'.
-            '(<h[0-9] class=\"inputnotebook-head\">.*?<\/h[0-9]>)/s',
-         $text,
-         $matches
-      );
-      var_dump( $matches );*/
-
-      // Sublists
-      /*$text = preg_replace(
-         '/(<\/li>)(.*?)(<h[0-9]|<li)/s',
-         '<ul class="foo">\2</ul>\1\3',
-         $text
-      );*/
-
-      return $text;
-
-   } elseif( 'no cache' == $op ) {
-      return true;
-   }
+   return $filters;
 }
 
-// core: hook_filter_tips()
-function inputnotebook_filter_tips( $delta, $format, $long=false ) {
+// callback: process
+function _inputnotebook_filter_process( $text, $filter, $format ) {
+   drupal_add_css(
+      drupal_get_path( 'module', 'inputnotebook' ).'/inputnotebook.css'
+   );
+
+   // Get rid of extraneous line breaks.
+   /*$text = preg_replace(
+      '/<p>\s.<\/p>/',
+      '',
+      $text
+   );*/
+
+   // Strike-through
+   $text = preg_replace(
+      '/<x>(.*)<\/x>/',
+      '<span class="inputnotebook-strike">\1</span>',
+      $text
+   );
+
+   // L3 Headers
+   $text = preg_replace(
+      '/=== (.*) ===/',
+      '<h4 class="inputnotebook-head">\1</h4>',
+      $text
+   );
+
+   // L2 Headers
+   $text = preg_replace(
+      '/== (.*) ==/',
+      '<h3 class="inputnotebook-head">\1</h3>',
+      $text
+   );
+
+   // L1 Headers
+   $text = preg_replace(
+      '/= (.*) =/',
+      '<h2 class="inputnotebook-head">\1</h2>',
+      $text
+   );
+
+   // List Items
+   $text = preg_replace(
+      '/^\* (.*)/m',
+      '<li>\1</li>',
+      $text
+   );
+
+   // Lists
+   $text = preg_replace(
+      '/(class=\"inputnotebook-head\">.*?<\/h[0-9]>.*?)(<li>)(.*?)'.
+         '(<h[0-9]|$)/sD',
+      '\1<ul class="inputnotebook-list">\2\3</ul>\4',
+      $text
+   );
+
+   // List Indentation
+   /*$text = preg_replace(
+      '/(<h[0-9])/',
+      '<div class="inputnotebook-indent">\1',
+      $text
+   );
+
+   $text = preg_replace(
+      '/(<\/ul>)/',
+      '\1</div>',
+      $text
+   );*/
+
+   /*preg_match_all(
+      '/(<h[0-9] class=\"inputnotebook-head\">.*?<\/h[0-9]>.*?)(<li>)(.*?)'.
+         '(<h[0-9] class=\"inputnotebook-head\">.*?<\/h[0-9]>)/s',
+      $text,
+      $matches
+   );
+   var_dump( $matches );*/
+
+   // Sublists
+   /*$text = preg_replace(
+      '/(<\/li>)(.*?)(<h[0-9]|<li)/s',
+      '<ul class="foo">\2</ul>\1\3',
+      $text
+   );*/
+
+   return $text;
+}
+
+// callback: tips
+function _inputnotebook_filter_tips( $delta, $format, $long=false ) {
    return t( 'You may denote = Headers = and * List Items using the '.
       '"notebook" input format.' );
 }

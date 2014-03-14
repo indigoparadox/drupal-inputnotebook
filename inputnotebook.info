@@ -1,0 +1,4 @@
+name = Notebook Input
+description = An input format designed to parse markup from TkNotebook.
+core = 7.x
+
